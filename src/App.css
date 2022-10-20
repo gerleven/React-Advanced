@@ -45,3 +45,8 @@
   align-items: center;
   gap: 7%;
 }
+
+NavLink{
+  color: #61dafb;
+  text-decoration:solid;
+}
