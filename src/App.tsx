@@ -1,69 +1,28 @@
-import React, { useState, useEffect } from "react";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
-import Loader from "./components/loader";
+import NavBar from "./components/NavBar/NavBar";
 import Header from "./pages/Header";
+import Home from "./pages/Home";
+import Hooks from "./pages/Hooks";
 
-interface Person {
-  name: string;
-  job: {
-    company: string;
-  };
-}
 function App() {
-
   /*Variables de estado*/
-  const [value, setValue] = useState<number>(0);
-  const [persona, setPersona] = useState<Person>({
-    name: "german",
-    job: { company: "Microsoft" },
-  });
-  const [dias, setDias] = useState<string[]>(["Lunes", "Martes"]);
-
   /*Handles*/
-  const handleClick = () => {
-    // setValue( value + 1); //ese value podria esta desactualizado
-    setValue((prevValue) => prevValue + 1); //Forma correcta
-    setPersona(
-      (prevPersona: Person) => ({ ...prevPersona, name: "joaquin" } as Person)
-    );
-    setDias((prevDias) => [...prevDias, "Miercoles"]);
-  };
-
   /*Efectos*/
-  useEffect(() => {
-    console.log("Efecto 1");
-    console.log(value);
-    console.log(persona);
-    console.log(dias);
-  });
-
-  useEffect(() => {
-    console.log("Eefcto 2");
-    const handleKeyListener = (e: KeyboardEvent) => {
-      console.log(e.code);
-    };
-
-    window.addEventListener("keydown", handleKeyListener);
-
-    const saniamiento = () => {
-      console.log("listener deleted");
-      window.removeEventListener("keydown", handleKeyListener);
-    };
-    return saniamiento;
-  }, []);
 
   /*Views*/
   return (
     <div className="App">
-      <header className="App-header">
-        <Header></Header>
-        
-        <Loader></Loader>
-        <p>Actual Value: {value}</p>
-        <button onClick={handleClick}>Value++</button>
-      </header>
+      <BrowserRouter>
+        <Header />
+        <NavBar></NavBar>
+
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/hooks" element={<Hooks />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
