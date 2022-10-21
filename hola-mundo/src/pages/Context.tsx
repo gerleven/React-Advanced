@@ -1,5 +1,6 @@
 import { useState, createContext, FC, useContext } from "react";
 import { NavLink } from "react-router-dom";
+import ContextChildA from "../components/ContextChild/ContextChildA";
 
 interface CounterContextInterface {
   counterState: number;
@@ -40,6 +41,8 @@ const Context = () => {
       >
         <ContextChildLocalA />
         <ContextChildLocalB />
+
+        {/* <ContextChildA/>  //Pendiente */}
       </CounterContext.Provider>
 
       <NavLink to="/" className={"App-link"}>
