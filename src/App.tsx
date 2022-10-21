@@ -1,15 +1,17 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import Header from "./components/Header/Header";
 import Home from "./pages/Home";
 import Hooks from "./pages/Hooks";
 import Context from "./pages/Context";
+import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   /*Variables de estado*/
+  
   /*Handles*/
+
   /*Efectos*/
 
   /*Views*/
