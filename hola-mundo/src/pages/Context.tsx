@@ -3,15 +3,17 @@ import { NavLink } from "react-router-dom";
 
 interface CounterContextInterface {
   counterState: number;
-  //resetCounter: ()=>(void)
-  //incrementCounter: ()=>(void),
+  incrementCounter: () => void;
+  decrementCounter: () => void;
+  setCounterState: (value: number) => void;
 }
 
 //Create and export de context of counter
 export const CounterContext = createContext<CounterContextInterface>({
   counterState: 0,
-  //resetCounter: () => {},
-  //incrementCounter: () => {},
+  incrementCounter: () => {},
+  decrementCounter: () => {},
+  setCounterState: () => {},
 });
 
 const Context = () => {
@@ -22,7 +24,20 @@ const Context = () => {
   return (
     <>
       <h1>Context!</h1>
-      <CounterContext.Provider value={{ counterState: counterState }}>
+      <CounterContext.Provider
+        value={{
+          counterState: counterState,
+          incrementCounter: () => {
+            setCounterState((prevState) => prevState + 1);
+          },
+          decrementCounter: () => {
+            setCounterState((prevState) => prevState - 1);
+          },
+          setCounterState: (value: number) => {
+            setCounterState(value);
+          },
+        }}
+      >
         <ContextChildLocalA />
         <ContextChildLocalB />
       </CounterContext.Provider>
@@ -37,10 +52,20 @@ const Context = () => {
 export default Context;
 
 const ContextChildLocalA: FC = () => {
-  const { counterState } = useContext(CounterContext);
+  const {
+    counterState,
+    incrementCounter,
+    decrementCounter,
+    setCounterState,
+  } = useContext(CounterContext);
   return (
     <>
-      <h3>Context Child Local A - state: {counterState}</h3>
+      <span>
+        <h3>Context Child Local A - state: {counterState}</h3>
+        <button onClick={decrementCounter}>---</button>
+        <button onClick={()=>setCounterState(0)}>Reset</button>
+        <button onClick={incrementCounter}>+++</button>
+      </span>
     </>
   );
 };
