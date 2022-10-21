@@ -17,7 +17,7 @@ export const CounterContext = createContext<CounterContextInterface>({
   setCounterState: () => {},
 });
 
-const Context = () => {
+const MyContext = () => {
   const [counterState, setCounterState] = useState(0);
 
   //async function resetCounter() {setCounterState(1);}
@@ -52,22 +52,21 @@ const Context = () => {
   );
 };
 
-export default Context;
+export default MyContext;
 
 const ContextChildLocalA: FC = () => {
-  const {
-    counterState,
-    incrementCounter,
-    decrementCounter,
-    setCounterState,
-  } = useContext(CounterContext);
+  const { counterState, incrementCounter, decrementCounter, setCounterState } =
+    useContext(CounterContext);
   return (
     <>
       <span>
         <h3>Context Child Local A - state: {counterState}</h3>
         <button onClick={decrementCounter}>---</button>
-        <button onClick={()=>setCounterState(0)}>Reset</button>
+        <button onClick={() => setCounterState(0)}>Reset</button>
         <button onClick={incrementCounter}>+++</button>
+
+        {/* <h4>Context Child of child A:</h4> */}
+        {/* <ContextChildA contextOfA={{counterState: 1,}}></ContextChildA> */}
       </span>
     </>
   );
@@ -75,9 +74,22 @@ const ContextChildLocalA: FC = () => {
 const ContextChildLocalB: FC = () => (
   <>
     <CounterContext.Consumer>
-      {({ counterState }) => (
+      {({
+        counterState,
+        incrementCounter,
+        decrementCounter,
+        setCounterState,
+      }) => (
         <>
-          <h3>Context Child Local B - state: {counterState}</h3>
+          <span>
+            <h3>Context Child Local B - state: {counterState}</h3>
+            <button onClick={decrementCounter}>---</button>
+            <button onClick={() => setCounterState(0)}>Reset</button>
+            <button onClick={incrementCounter}>+++</button>
+
+            {/* <h4>Context Child of child A:</h4> */}
+            {/* <ContextChildA contextOfA={{counterState: 1,}}></ContextChildA> */}
+          </span>
         </>
       )}
     </CounterContext.Consumer>
